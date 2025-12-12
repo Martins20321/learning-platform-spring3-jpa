@@ -1,5 +1,6 @@
 package com.estudosjavaspring.springcourse.entities;
 
+import com.estudosjavaspring.springcourse.entities.enums.CourseLevel;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -17,15 +18,18 @@ public class Course implements Serializable {
     private Double price;
     private String imgUrl;
 
+    private Integer level;
+
     public Course(){
 
     }
 
-    public Course(Long id, String title, String description, Double price, String imgUrl) {
+    public Course(Long id, String title, String description, Double price, CourseLevel level, String imgUrl) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.price = price;
+        setLevel(level);
         this.imgUrl = imgUrl;
     }
 
@@ -59,6 +63,16 @@ public class Course implements Serializable {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public CourseLevel getLevel() {
+        return CourseLevel.valueOf(level);
+    }
+
+    public void setLevel(CourseLevel level) {
+        if(level != null) {
+            this.level = level.getCode();
+        }
     }
 
     public String getImgUrl() {
