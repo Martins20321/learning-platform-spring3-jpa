@@ -11,6 +11,7 @@ import java.util.Optional;
 @Service
 public class UserService {
 
+    //Onde armazena as operações
     @Autowired
     UserRepository repository;
 
