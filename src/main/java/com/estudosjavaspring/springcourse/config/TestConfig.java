@@ -1,16 +1,20 @@
 package com.estudosjavaspring.springcourse.config;
 
 import com.estudosjavaspring.springcourse.entities.Course;
+import com.estudosjavaspring.springcourse.entities.Enrollment;
 import com.estudosjavaspring.springcourse.entities.User;
 import com.estudosjavaspring.springcourse.entities.enums.CourseLevel;
+import com.estudosjavaspring.springcourse.entities.enums.EnrollmentStatus;
 import com.estudosjavaspring.springcourse.entities.enums.UserRole;
 import com.estudosjavaspring.springcourse.repositories.CourseRepository;
+import com.estudosjavaspring.springcourse.repositories.EnrollmentRepository;
 import com.estudosjavaspring.springcourse.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import java.time.Instant;
 import java.util.Arrays;
 
 @Configuration
@@ -22,6 +26,9 @@ public class TestConfig implements CommandLineRunner {
 
     @Autowired
     CourseRepository courseRepository;
+
+    @Autowired
+    EnrollmentRepository enrollmentRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -35,5 +42,12 @@ public class TestConfig implements CommandLineRunner {
 
         userRepository.saveAll(Arrays.asList(us1,us2,us3));
         courseRepository.saveAll(Arrays.asList(c1,c2,c3));
+
+        Enrollment e1 = new Enrollment(c1, us2, Instant.now(), EnrollmentStatus.ACTIVE);
+        Enrollment e2 = new Enrollment(c2, us1, Instant.now(), EnrollmentStatus.CANCELED);
+        Enrollment e3 = new Enrollment(c3, us3, Instant.now(), EnrollmentStatus.COMPLETED);
+
+        enrollmentRepository.saveAll(Arrays.asList(e1,e2,e3));
+
     }
 }

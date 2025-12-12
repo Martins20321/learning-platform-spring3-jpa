@@ -4,7 +4,9 @@ import com.estudosjavaspring.springcourse.entities.enums.CourseLevel;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_course")
@@ -19,6 +21,13 @@ public class Course implements Serializable {
     private String imgUrl;
 
     private Integer level;
+
+    @OneToMany(mappedBy = "course")
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @OneToMany(mappedBy = "id.course")
+    private Set<Enrollment> enrollments = new HashSet<>(); //Não havendo repetição
 
     public Course(){
 
@@ -81,6 +90,10 @@ public class Course implements Serializable {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    public Set<Enrollment> getEnrollments(){
+        return enrollments;
     }
 
     @Override
