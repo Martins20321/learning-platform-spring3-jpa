@@ -1,5 +1,6 @@
 package com.estudosjavaspring.springcourse.entities;
 
+import com.estudosjavaspring.springcourse.entities.enums.UserRole;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -17,16 +18,19 @@ public class User implements Serializable {
     private String phone;
     private String password;
 
+    private Integer role;
+
     public User(){
 
     }
 
-    public User(Long id, String name, String email, String phone, String password) {
+    public User(Long id, String name, String email, String phone, String password, UserRole role) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.password = password;
+        setRole(role);
     }
 
     public Long getId() {
@@ -67,6 +71,16 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public UserRole getRole() {
+        return UserRole.valueOf(role);
+    }
+
+    public void setRole(UserRole role) {
+        if(role != null){
+        this.role = role.getCode();
+        }
     }
 
     @Override
