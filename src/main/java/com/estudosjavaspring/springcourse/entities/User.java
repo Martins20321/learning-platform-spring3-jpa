@@ -20,10 +20,6 @@ public class User implements Serializable {
 
     private Integer role;
 
-    @OneToMany
-    @JoinColumn(name = "couse_id")
-    private Course course;
-
     public User(){
 
     }

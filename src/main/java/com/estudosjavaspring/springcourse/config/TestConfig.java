@@ -2,12 +2,14 @@ package com.estudosjavaspring.springcourse.config;
 
 import com.estudosjavaspring.springcourse.entities.Course;
 import com.estudosjavaspring.springcourse.entities.Enrollment;
+import com.estudosjavaspring.springcourse.entities.Lesson;
 import com.estudosjavaspring.springcourse.entities.User;
 import com.estudosjavaspring.springcourse.entities.enums.CourseLevel;
 import com.estudosjavaspring.springcourse.entities.enums.EnrollmentStatus;
 import com.estudosjavaspring.springcourse.entities.enums.UserRole;
 import com.estudosjavaspring.springcourse.repositories.CourseRepository;
 import com.estudosjavaspring.springcourse.repositories.EnrollmentRepository;
+import com.estudosjavaspring.springcourse.repositories.LessonRepository;
 import com.estudosjavaspring.springcourse.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -30,6 +32,9 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     EnrollmentRepository enrollmentRepository;
 
+    @Autowired
+    LessonRepository lessonRepository;
+
     @Override
     public void run(String... args) throws Exception {
         User us1 = new User(null, "Pablo Marcelo", "pabloa@gmail.com", "6199843123", "1234", UserRole.ADMIN);
@@ -49,5 +54,10 @@ public class TestConfig implements CommandLineRunner {
 
         enrollmentRepository.saveAll(Arrays.asList(e1,e2,e3));
 
+        Lesson l1 = new Lesson(null, "Criação de API", 2.00, "teste");
+        Lesson l2 = new Lesson(null, "Aprendendo Spring Boot", 3.00, "teste");
+        Lesson l3 = new Lesson(null, "Certificação AWS", 3.30, "teste");
+
+        lessonRepository.saveAll(Arrays.asList(l1,l2,l3));
     }
 }
