@@ -2,8 +2,10 @@ package com.estudosjavaspring.springcourse.services;
 
 import com.estudosjavaspring.springcourse.entities.User;
 import com.estudosjavaspring.springcourse.repositories.UserRepository;
+import com.estudosjavaspring.springcourse.services.exceptions.DatabaseException;
 import com.estudosjavaspring.springcourse.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -31,7 +33,16 @@ public class UserService {
     }
 
     public void delete(Long id){
-        repository.deleteById(id);
+        try { //Se não existir
+            if(!repository.existsById(id)) throw new ResourceNotFoundException(id);
+            repository.deleteById(id);
+        }
+        catch(ResourceNotFoundException e) { //Primeira exception, quando não encontrar o id
+            throw new ResourceNotFoundException(id);
+        }
+        catch(DataIntegrityViolationException e) { //Segunda exception, erro de integridade
+            throw new DatabaseException(e.getMessage());
+        }
     }
 
     public User update(User obj, Long id){
