@@ -22,17 +22,22 @@ public class Course implements Serializable {
 
     private Integer level;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
     public Course(){
 
     }
 
-    public Course(Long id, String title, String description, Double price, CourseLevel level, String imgUrl) {
+    public Course(Long id, String title, String description, Double price, CourseLevel level, String imgUrl, Category category) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.price = price;
         setLevel(level);
         this.imgUrl = imgUrl;
+        this.category = category;
     }
 
     public Long getId() {
@@ -83,6 +88,14 @@ public class Course implements Serializable {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     @Override
