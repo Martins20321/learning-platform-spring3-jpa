@@ -32,6 +32,9 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     CategoryRepository categoryRepository;
 
+    @Autowired
+    PaymentRepository paymentRepository;
+
     @Override
     public void run(String... args) throws Exception {
         User us1 = new User(null, "Pablo Marcelo", "pabloa@gmail.com", "6199843123", "1234", UserRole.ADMIN);
@@ -55,7 +58,12 @@ public class TestConfig implements CommandLineRunner {
         Enrollment e2 = new Enrollment(c2, us1, Instant.now(), EnrollmentStatus.CANCELED);
         Enrollment e3 = new Enrollment(c3, us3, Instant.now(), EnrollmentStatus.COMPLETED);
 
+        Payment p1 = new Payment(null, Instant.now(), c1.getPrice(),e1);
+        Payment p2 = new Payment(null, Instant.now(), 0.00 ,e2);
+        Payment p3 = new Payment(null, Instant.now(), c3.getPrice(),e3);
+
         enrollmentRepository.saveAll(Arrays.asList(e1,e2,e3));
+        paymentRepository.saveAll(Arrays.asList(p1,p2,p3));
 
         Lesson l1 = new Lesson(null, "Criação de API", 2.00, "teste");
         Lesson l2 = new Lesson(null, "Aprendendo Spring Boot", 3.00, "teste");

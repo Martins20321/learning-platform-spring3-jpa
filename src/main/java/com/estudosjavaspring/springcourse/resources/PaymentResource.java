@@ -1,7 +1,7 @@
 package com.estudosjavaspring.springcourse.resources;
 
-import com.estudosjavaspring.springcourse.entities.Category;
-import com.estudosjavaspring.springcourse.services.CategoryService;
+import com.estudosjavaspring.springcourse.entities.Payment;
+import com.estudosjavaspring.springcourse.services.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,21 +12,20 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/categories")
-public class CategoryResource {
+@RequestMapping(value = "/payments")
+public class PaymentResource {
 
     @Autowired
-    private CategoryService service;
+    private PaymentService service;
 
     @GetMapping
-    public ResponseEntity<List<Category>> findAll(){
-        List<Category> list = service.findAll();
+    public ResponseEntity<List<Payment>> findAll(){
+        List<Payment> list = service.findAll();
         return ResponseEntity.ok().body(list);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Category> findById(@PathVariable Long id){
-        Category obj = service.findById(id);
+    public ResponseEntity<Payment> findById(@PathVariable Long id){
+        Payment obj = service.findById(id);
         return ResponseEntity.ok().body(obj);
     }
 }

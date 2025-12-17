@@ -21,6 +21,10 @@ public class Enrollment implements Serializable {
 
     private Integer status;
 
+    @OneToOne
+    @JoinColumn(name = "payment_id")
+    private Payment payment;
+
     public Enrollment(){
 
     }
