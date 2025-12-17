@@ -26,4 +26,8 @@ public class CourseService {
     public Course insert(Course obj){
         return repository.save(obj);
     }
+
+    public void delete(Long id){
+        repository.deleteById(id);
+    }
 }
