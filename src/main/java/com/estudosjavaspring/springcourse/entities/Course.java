@@ -4,9 +4,7 @@ import com.estudosjavaspring.springcourse.entities.enums.CourseLevel;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "tb_course")
@@ -28,6 +26,9 @@ public class Course implements Serializable {
 
     @OneToMany(mappedBy = "course")
     private Set<Lesson> lessons = new HashSet<>();
+
+    @OneToMany(mappedBy = "id.course")
+    private Set<Enrollment> enrollments = new HashSet<>();
 
     public Course(){
 

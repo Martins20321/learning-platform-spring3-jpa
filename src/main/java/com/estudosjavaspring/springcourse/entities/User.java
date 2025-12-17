@@ -4,7 +4,7 @@ import com.estudosjavaspring.springcourse.entities.enums.UserRole;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "tb_user")
@@ -19,6 +19,9 @@ public class User implements Serializable {
     private String password;
 
     private Integer role;
+
+   @OneToMany(mappedBy = "id.user")
+    private Set<Enrollment> enrollments = new HashSet<>();
 
     public User(){
 

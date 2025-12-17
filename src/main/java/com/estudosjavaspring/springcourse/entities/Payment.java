@@ -16,7 +16,9 @@ public class Payment implements Serializable {
     private Instant moment;
     private Double amount;
 
-    @OneToOne(mappedBy = "payment")
+    @OneToOne
+    @JoinColumn(name = "enrollment_course_id")
+    @JoinColumn(name = "enrollment_user_id")
     private Enrollment enrollment;
 
     public Payment(){

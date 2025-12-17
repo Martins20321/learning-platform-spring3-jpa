@@ -3,6 +3,7 @@ package com.estudosjavaspring.springcourse.entities;
 import com.estudosjavaspring.springcourse.entities.enums.EnrollmentStatus;
 import com.estudosjavaspring.springcourse.entities.pk.EnrollmentPK;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -21,8 +22,7 @@ public class Enrollment implements Serializable {
 
     private Integer status;
 
-    @OneToOne
-    @JoinColumn(name = "payment_id")
+    @OneToOne(mappedBy = "enrollment", cascade = CascadeType.ALL)
     private Payment payment;
 
     public Enrollment(){
@@ -74,6 +74,14 @@ public class Enrollment implements Serializable {
 
     public void setStatus(EnrollmentStatus status) {
         this.status = status.getCode();
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
     }
 
     @Override
