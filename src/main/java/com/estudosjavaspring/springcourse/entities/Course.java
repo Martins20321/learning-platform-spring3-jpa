@@ -26,6 +26,9 @@ public class Course implements Serializable {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    @OneToMany(mappedBy = "course")
+    private Set<Lesson> lessons = new HashSet<>();
+
     public Course(){
 
     }
@@ -96,6 +99,10 @@ public class Course implements Serializable {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public Set<Lesson> getLessons() {
+        return lessons;
     }
 
     @Override

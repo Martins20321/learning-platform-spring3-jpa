@@ -65,9 +65,9 @@ public class TestConfig implements CommandLineRunner {
         enrollmentRepository.saveAll(Arrays.asList(e1,e2,e3));
         paymentRepository.saveAll(Arrays.asList(p1,p2,p3));
 
-        Lesson l1 = new Lesson(null, "Criação de API", 2.00, "teste");
-        Lesson l2 = new Lesson(null, "Aprendendo Spring Boot", 3.00, "teste");
-        Lesson l3 = new Lesson(null, "Certificação AWS", 3.30, "teste");
+        Lesson l1 = new Lesson(null, "Criação de API", 2.00, "teste", c1);
+        Lesson l2 = new Lesson(null, "Aprendendo Spring Boot", 3.00, "teste", c2);
+        Lesson l3 = new Lesson(null, "Certificação AWS", 3.30, "teste", c3);
 
         lessonRepository.saveAll(Arrays.asList(l1,l2,l3));
     }

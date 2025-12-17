@@ -1,5 +1,6 @@
 package com.estudosjavaspring.springcourse.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -16,15 +17,21 @@ public class Lesson implements Serializable {
     private Double duration;
     private String videoUrl;
 
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "course_id")
+    private Course course;
+
     public Lesson(){
 
     }
 
-    public Lesson(Long id, String title, Double duration, String videoUrl) {
+    public Lesson(Long id, String title, Double duration, String videoUrl, Course course) {
         this.id = id;
         this.title = title;
         this.duration = duration;
         this.videoUrl = videoUrl;
+        this.course = course;
     }
 
     public Long getId() {
@@ -57,6 +64,14 @@ public class Lesson implements Serializable {
 
     public void setVideoUrl(String videoUrl) {
         this.videoUrl = videoUrl;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
     @Override
