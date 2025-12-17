@@ -30,4 +30,16 @@ public class CourseService {
     public void delete(Long id){
         repository.deleteById(id);
     }
+
+    public Course update(Long id, Course obj){
+        Course entity = repository.getReferenceById(id);
+        UpdateDate(entity, obj);
+        return repository.save(entity);
+    }
+
+    private void UpdateDate(Course entity, Course obj) {
+        entity.setDescription(obj.getDescription());
+        entity.setTitle(obj.getTitle());
+        entity.setImgUrl(obj.getImgUrl());
+    }
 }
