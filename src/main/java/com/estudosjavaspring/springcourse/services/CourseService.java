@@ -2,9 +2,12 @@ package com.estudosjavaspring.springcourse.services;
 
 import com.estudosjavaspring.springcourse.entities.Course;
 import com.estudosjavaspring.springcourse.repositories.CourseRepository;
+import com.estudosjavaspring.springcourse.services.exceptions.DatabaseException;
 import com.estudosjavaspring.springcourse.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,7 +33,16 @@ public class CourseService {
     }
 
     public void delete(Long id){
-        repository.deleteById(id);
+        try {
+            if(!repository.existsById(id)) throw new ResourceNotFoundException(id);
+            repository.deleteById(id);
+        }
+        catch(EmptyResultDataAccessException e) { //Primeira exception, quando não encontrar o id
+            throw new ResourceNotFoundException(id);
+        }
+        catch(DataIntegrityViolationException e) { //Segunda exception, erro de integridade
+            throw new DatabaseException(e.getMessage());
+        }
     }
 
     public Course update(Long id, Course obj){
