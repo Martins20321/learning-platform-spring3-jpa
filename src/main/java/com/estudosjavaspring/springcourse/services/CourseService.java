@@ -2,6 +2,8 @@ package com.estudosjavaspring.springcourse.services;
 
 import com.estudosjavaspring.springcourse.entities.Course;
 import com.estudosjavaspring.springcourse.repositories.CourseRepository;
+import com.estudosjavaspring.springcourse.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +22,7 @@ public class CourseService {
 
     public Course findById(Long id){
         Optional<Course> obj = repository.findById(id);
-        return obj.get();
+        return obj.orElseThrow(()-> new ResourceNotFoundException(id));
     }
 
     public Course insert(Course obj){
@@ -32,9 +34,14 @@ public class CourseService {
     }
 
     public Course update(Long id, Course obj){
-        Course entity = repository.getReferenceById(id);
-        UpdateDate(entity, obj);
-        return repository.save(entity);
+        try {
+            Course entity = repository.getReferenceById(id);
+            UpdateDate(entity, obj);
+            return repository.save(entity);
+        }
+        catch(EntityNotFoundException e){
+            throw new ResourceNotFoundException(id);
+        }
     }
 
     private void UpdateDate(Course entity, Course obj) {
