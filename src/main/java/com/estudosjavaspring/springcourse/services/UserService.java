@@ -6,6 +6,7 @@ import com.estudosjavaspring.springcourse.services.exceptions.DatabaseException;
 import com.estudosjavaspring.springcourse.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -37,7 +38,7 @@ public class UserService {
             if(!repository.existsById(id)) throw new ResourceNotFoundException(id);
             repository.deleteById(id);
         }
-        catch(ResourceNotFoundException e) { //Primeira exception, quando não encontrar o id
+        catch(EmptyResultDataAccessException e) { //Primeira exception, quando não encontrar o id
             throw new ResourceNotFoundException(id);
         }
         catch(DataIntegrityViolationException e) { //Segunda exception, erro de integridade
